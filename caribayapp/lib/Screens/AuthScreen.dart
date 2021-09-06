@@ -88,7 +88,7 @@ class _AuthScreenController extends State<AuthScreen> {
     return Align(
       alignment: Alignment.center,
       child: Padding(
-        padding: EdgeInsets.only(top: 10.0, bottom: 40.0,),
+        padding: EdgeInsets.only(top: 20.0, bottom: 40.0,),
         child: Icon(Icons.polymer,
           size: 30.0,
           color: AppColors.primary,
