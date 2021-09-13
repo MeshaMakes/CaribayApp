@@ -14,7 +14,7 @@ class ButtonWidget extends StatefulWidget {
     this.alignment = Alignment.center,
     this.widget,
     this.text,
-    this.padding = const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0,),
+    this.padding = const EdgeInsets.symmetric(vertical: 15.0, horizontal: 15.0,),
   }) : super(key: key);
   @override
   _ButtonWidgetState createState() => _ButtonWidgetState();
@@ -33,13 +33,13 @@ class _ButtonWidgetState extends State<ButtonWidget> {
           hoverColor: Colors.transparent,
           highlightColor: AppColors.primary.withOpacity(0.5,),
           splashColor: Colors.transparent,
-          borderRadius: BorderRadius.circular(5.0,),
+          borderRadius: BorderRadius.circular(7.5,),
           child: Container(
             width: double.infinity,
             padding: widget.padding,
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5.0,),
+              borderRadius: BorderRadius.circular(7.5,),
               border: Border.all(color: AppColors.primary, width: 0.5,),
             ),
             child: (widget.widget == null) ? TextView(text: widget.text ?? "",

@@ -1,7 +1,7 @@
+import 'package:caribayapp/Dialogs/OnboardingDialog.dart';
 import 'package:caribayapp/Utils/Enums.dart';
 import 'package:caribayapp/Widgets/ButtonWidget.dart';
 import 'package:caribayapp/Widgets/TextFieldWidget.dart';
-import 'package:caribayapp/Widgets/IconBtnWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sad_lib/CustomWidgets.dart';
@@ -37,17 +37,19 @@ class _AuthScreenController extends State<AuthScreen> {
       color: AppColors.background,
       child: SafeArea(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                padding: EdgeInsets.symmetric(horizontal: 20.0,),
-                child: AnimatedCrossFade(
-                  crossFadeState: showRegister ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-                  duration: Duration(milliseconds: 750,),
-                  firstChild: _registerView(),
-                  secondChild: _loginView(),
+              child: Container(
+                alignment: Alignment.center,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0,),
+                  child: AnimatedCrossFade(
+                    crossFadeState: showRegister ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                    duration: Duration(milliseconds: 750,),
+                    firstChild: _registerView(),
+                    secondChild: _loginView(),
+                  ),
                 ),
               ),
             ),
@@ -56,7 +58,7 @@ class _AuthScreenController extends State<AuthScreen> {
               thickness: 0.5,
             ),
             ButtonView(
-              onPressed: toggleSignUp,
+              onPressed: _toggleSignUp,
               highlightColor: AppColors.white.withOpacity(0.2,),
               margin: EdgeInsets.only(top: 10.0, bottom: MediaQuery.of(context).viewInsets.bottom + 10,),
               padding: EdgeInsets.symmetric(vertical: 7.5, horizontal: 15.0,),
@@ -88,7 +90,7 @@ class _AuthScreenController extends State<AuthScreen> {
     return Align(
       alignment: Alignment.center,
       child: Padding(
-        padding: EdgeInsets.only(top: 20.0, bottom: 40.0,),
+        padding: EdgeInsets.only(bottom: 50.0,),
         child: Icon(Icons.polymer,
           size: 30.0,
           color: AppColors.primary,
@@ -97,58 +99,10 @@ class _AuthScreenController extends State<AuthScreen> {
     );
   }
 
-  Widget _nextButton(){
-    return ButtonWidget(
-      onPressed: () {},
-      text: showRegister ? "SIGN UP" : "LOG IN",
-      alignment: Alignment.centerRight,
-      margin: EdgeInsets.only(top: 20.0, bottom: 50.0,),
-    );
-  }
-
-  Widget _registerView(){
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _logo(),
-        TextFieldWidget(
-          key: ValueKey("email"),
-          onChanged: (String s) {
-
-          },
-          icon: Icons.email_outlined,
-          hintText: "Enter email",
-          textInputType: TextInputType.emailAddress,
-          margin: EdgeInsets.symmetric(vertical: 15.0),
-        ),
-        TextFieldWidget(
-          key: ValueKey("name"),
-          onChanged: (String s) {
-
-          },
-          icon: Icons.person_pin_outlined,
-          hintText: "Enter name",
-          textInputType: TextInputType.name,
-          margin: EdgeInsets.symmetric(vertical: 15.0),
-        ),
-        TextFieldWidget(
-          key: ValueKey("password"),
-          onChanged: (String s) {
-
-          },
-          icon: Icons.vpn_key_outlined,
-          hintText: "Enter password",
-          textInputType: TextInputType.visiblePassword,
-          margin: EdgeInsets.only(top: 15.0, bottom: 45.0,),
-        ),
-        _nextButton(),
-      ],
-    );
-  }
-
   Widget _loginView(){
     return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _logo(),
@@ -190,10 +144,70 @@ class _AuthScreenController extends State<AuthScreen> {
     );
   }
 
-  void toggleSignUp() {
+  Widget _registerView(){
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _logo(),
+        TextFieldWidget(
+          key: ValueKey("email"),
+          onChanged: (String s) {
+
+          },
+          icon: Icons.email_outlined,
+          hintText: "Enter email",
+          textInputType: TextInputType.emailAddress,
+          margin: EdgeInsets.symmetric(vertical: 15.0),
+        ),
+        TextFieldWidget(
+          key: ValueKey("name"),
+          onChanged: (String s) {
+
+          },
+          icon: Icons.person_pin_outlined,
+          hintText: "Enter name",
+          textInputType: TextInputType.name,
+          margin: EdgeInsets.symmetric(vertical: 15.0),
+        ),
+        TextFieldWidget(
+          key: ValueKey("password"),
+          onChanged: (String s) {
+
+          },
+          icon: Icons.vpn_key_outlined,
+          hintText: "Enter password",
+          textInputType: TextInputType.visiblePassword,
+          margin: EdgeInsets.only(top: 15.0, bottom: 45.0,),
+        ),
+        _nextButton(),
+      ],
+    );
+  }
+
+  Widget _nextButton(){
+    return ButtonWidget(
+      onPressed: () {
+        _openDialog();
+      },
+      text: showRegister ? "SIGN UP" : "LOG IN",
+      alignment: Alignment.centerRight,
+      margin: EdgeInsets.only(top: 20.0, bottom: 50.0,),
+    );
+  }
+
+
+  void _toggleSignUp() {
     setState(() {
       showRegister = !showRegister;
     });
+  }
+
+  void _openDialog(){
+    showModalBottomSheet(context: context, enableDrag: true, isScrollControlled: true,
+      builder: (context) => OnBoardingDialog(),
+    );
   }
 
 }

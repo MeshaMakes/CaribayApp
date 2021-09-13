@@ -1,4 +1,5 @@
 import 'package:caribayapp/Screens/AuthScreen.dart';
+import 'package:caribayapp/Utils/Colors.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -6,11 +7,13 @@ void main() {
 }
 
 class AppWrapper extends StatelessWidget {
-  const AppWrapper({Key key}) : super(key: key);
+  AppWrapper({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: "Caribay",
+      color: AppColors.primary,
       home: AuthScreen(),
     );
   }
